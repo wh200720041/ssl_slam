@@ -1,4 +1,4 @@
-# FLOAM 
+# FLOAM - SSL
 ## Fast LOAM (Lidar Odometry And Mapping) for solid state lidar (Intel Realsense L515 as an example)
 
 This code is modified from [FLOAM](https://github.com/wh200720041/floam) 
@@ -12,12 +12,12 @@ This project is still under construction because I don't have time to test on ro
 
 ## 1. Solid-State Lidar Sensor Example
 <p align='center'>
-<img width="65%" src="/img/realsense_L1515.jpg"/>
+<img width="65%" src="/img/realsense_L515.jpg"/>
 </p>
 Sensor Image
 
 <p align='center'>
-<img width="65%" src="/img/realsense_L1515_description.jpg"/>
+<img width="65%" src="/img/realsense_L515_description.jpg"/>
 </p>
 
 ## 2. Evaluation
@@ -65,3 +65,4 @@ if you would like to create the map at the same time, you can run (more cpu cost
     roslaunch floam floam_mapping.launch
 ```
 If the mapping process is slow, you may wish to change the rosbag speed by replacing "--clock -r 0.5" with "--clock -r 0.2" in your launch file, or you can change the map publish frequency manually (default is 10 Hz)
+
