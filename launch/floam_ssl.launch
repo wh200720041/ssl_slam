@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<launch>
+
+    
+    <node pkg="rosbag" type="play" name="rosbag_play" args="--clock $(find floam_ssl)/dataset/test.bag"/> 
+    
+    <!--- Sim Time -->
+    <param name="/use_sim_time" value="true" />
+    <param name="scan_period" value="0.1" />
+
+    <param name="vertical_angle" type="double" value="2.0" />
+    <param name="max_dis" type="double" value="9.0" />
+    <param name="map_resolution" type="double" value="0.1" />
+    <param name="min_dis" type="double" value="0.2" />
+    
+    
+    
+    <node pkg="floam_ssl" type="floam_ssl_laser_processing_node" name="floam_ssl_laser_processing_node" output="screen"/>
+    <!-- -->
+    <node pkg="floam_ssl" type="floam_ssl_odom_estimation_node" name="floam_ssl_odom_estimation_node" output="log"/>
+    
+    <node pkg="tf" type="static_transform_publisher" name="world2map_tf"  args="0 0 0 0 0 1.57 /world /map 10" />
+    <node pkg="tf" type="static_transform_publisher" name="baselink2camera_tf"  args="0 0 0 0 0 0 /base_link /L515_depth_optical_frame 10" />
+
+
+    <arg name="rviz" default="true" />
+    <group if="$(arg rviz)">
+        <node launch-prefix="nice" pkg="rviz" type="rviz" name="rviz" args="-d $(find floam_ssl)/rviz/floam_ssl.rviz" />
+    </group>
+
+    <node pkg="hector_trajectory_server" type="hector_trajectory_server" name="trajectory_server_loam" ns="base_link" >
+        <param name="/target_frame_name" value="world" />
+        <param name="/source_frame_name" value="base_link" />
+        <param name="/trajectory_update_rate" value="10.0" />
+        <param name="/trajectory_publish_rate" value="10.0" />
+    </node>
+
+</launch>
