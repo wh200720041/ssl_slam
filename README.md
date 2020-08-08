@@ -5,23 +5,38 @@ This code is modified from [FLOAM](https://github.com/wh200720041/floam)
 
 **Modifier:** [Wang Han](http://wanghan.pro), Nanyang Technological University, Singapore
 
-This project is under development, and currently only L515 was tested. Because for solid-state lidar, different company may have different configuration. If you would like to try other senseors, 
-you may test with current version, or email me your sensor brand, configuration as well as the rosbag recording. I will have a quick evaluation when free. 
-
-This project is still under construction because I don't have time to test on robot pltform to further evaluate the performance. You are welcomed to leave feedback of test result on your own platform. Thanks in advance.
+Running speed: 20 Hz on Intel NUC, 30 Hz on PC 
 
 ## 1. Solid-State Lidar Sensor Example
+###1.1 Scene reconstruction
 <p align='center'>
-<img width="65%" src="/img/realsense_L515.jpg"/>
-</p>
-Sensor Image
-
-<p align='center'>
-<img width="65%" src="/img/realsense_L515_description.jpg"/>
+<img width="65%" src="/img/3D_reconstruction.jpg"/>
 </p>
 
-## 2. Evaluation
-TODO 
+###1.2 Localization and Mapping with L515
+<p align='center'>
+<a href="https://youtu.be/G5aruo2bSxc">
+<img width="65%" src="/img/3D_SLAM.jpg"/>
+</p>
+
+## 2. Sensor Setup
+###2.1 Librealsense
+Follow [Librealsense Installation](https://github.com/IntelRealSense/librealsense/blob/master/doc/installation.md)
+
+###2.2 Realsense_ros
+Copy realsense_ros package to your catkin folder
+```
+    cd ~/catkin_ws/src
+    git clone https://github.com/IntelRealSense/realsense-ros.git
+    cd ..
+    catkin_make
+```
+###2.3 Change parameter for L515
+Open ~/catkin_ws/src/realsense-ros/realsense2_camera/launch/rs_camera.launch with text editor
+search for the below argument and change default setting to below setting
+<arg name="color_width"         default="1280"/>
+<arg name="color_height"        default="720"/>
+<arg name="filters"             default="pointcloud"/>
 
 
 ## 3. Prerequisites
@@ -53,16 +68,16 @@ Alternatively, you may remove the hector trajectory server node if trajectory vi
     source ~/catkin_ws/devel/setup.bash
 ```
 ### 4.2 Dataset
-Currently there are no public dataset for use and I don't have solid-state lidar on hand. 
-You need to use your own sensor or record your own rosbag.
+The rosbag will be provided later
 
 ### 4.3 Launch ROS
+if you would like to create the map at the same time, you can run 
+```
+    roslaunch floam floam_ssl_mapping.launch
+```
+
+if only localization is required, pls run
 ```
     roslaunch floam_ssl floam_ssl.launch
 ```
-if you would like to create the map at the same time, you can run (more cpu cost)
-```
-    roslaunch floam floam_mapping.launch
-```
-If the mapping process is slow, you may wish to change the rosbag speed by replacing "--clock -r 0.5" with "--clock -r 0.2" in your launch file, or you can change the map publish frequency manually (default is 10 Hz)
 
