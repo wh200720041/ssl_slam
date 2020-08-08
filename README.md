@@ -10,13 +10,18 @@ Running speed: 20 Hz on Intel NUC, 30 Hz on PC
 ## 1. Solid-State Lidar Sensor Example
 ###1.1 Scene reconstruction
 <p align='center'>
-<img width="65%" src="/img/3D_reconstruction.jpg"/>
+<img width="65%" src="/img/3D_reconstruction.gif"/>
 </p>
 
-###1.2 Localization and Mapping with L515
+###1.2 SFM building example
+<p align='center'>
+<img width="65%" src="/img/3D_reconstruction.png"/>
+</p>
+
+###1.3 Localization and Mapping with L515
 <p align='center'>
 <a href="https://youtu.be/G5aruo2bSxc">
-<img width="65%" src="/img/3D_SLAM.jpg"/>
+<img width="65%" src="/img/3D_SLAM.gif"/>
 </p>
 
 ## 2. Sensor Setup
@@ -80,4 +85,5 @@ if only localization is required, pls run
 ```
     roslaunch floam_ssl floam_ssl.launch
 ```
+
 
