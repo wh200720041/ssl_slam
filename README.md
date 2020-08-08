@@ -8,31 +8,31 @@ This code is modified from [FLOAM](https://github.com/wh200720041/floam)
 Running speed: 20 Hz on Intel NUC, 30 Hz on PC
 
 ## 1. Solid-State Lidar Sensor Example
-###1.1 Scene reconstruction
+### 1.1 Scene reconstruction
 <p align='center'>
 <img width="65%" src="/img/3D_reconstruction.gif"/>
 </p>
 Scanning Office area
 
-###1.2 SFM building example
+### 1.2 SFM building example
 <p align='center'>
 <img width="65%" src="/img/3D_reconstruction.png"/>
 </p>
 Build Office Map
 
-###1.3 Localization and Mapping with L515
+### 1.3 Localization and Mapping with L515
 <p align='center'>
-<a href="https://youtu.be/G5aruo2bSxc">
+<a href="https://youtu.be/G5aruo2bSxc"/>
 <img width="65%" src="/img/3D_SLAM.gif"/>
 </p>
 
 Robot Runtest on Indoor Environment
 
 ## 2. Sensor Setup
-###2.1 Librealsense
+### 2.1 Librealsense
 Follow [Librealsense Installation](https://github.com/IntelRealSense/librealsense/blob/master/doc/installation.md)
 
-###2.2 Realsense_ros
+### 2.2 Realsense_ros
 Copy realsense_ros package to your catkin folder
 ```
     cd ~/catkin_ws/src
@@ -41,7 +41,7 @@ Copy realsense_ros package to your catkin folder
     catkin_make
 ```
 
-###2.3 Change parameter for L515
+### 2.3 Change parameter for L515
 Change the parameter setting for L515
 ```
  sudo gedit ~/catkin_ws/src/realsense-ros/realsense2_camera/launch/rs_camera.launch 
