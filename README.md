@@ -12,17 +12,20 @@ Running speed: 20 Hz on Intel NUC, 30 Hz on PC
 <p align='center'>
 <img width="65%" src="/img/3D_reconstruction.gif"/>
 </p>
+Scanning Office area
 
 ###1.2 SFM building example
 <p align='center'>
 <img width="65%" src="/img/3D_reconstruction.png"/>
 </p>
+Build Office Map
 
 ###1.3 Localization and Mapping with L515
 <p align='center'>
 <a href="https://youtu.be/G5aruo2bSxc">
 <img width="65%" src="/img/3D_SLAM.gif"/>
 </p>
+Robot Runtest on Indoor Environment
 
 ## 2. Sensor Setup
 ###2.1 Librealsense
