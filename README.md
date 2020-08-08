@@ -5,7 +5,7 @@ This code is modified from [FLOAM](https://github.com/wh200720041/floam)
 
 **Modifier:** [Wang Han](http://wanghan.pro), Nanyang Technological University, Singapore
 
-Running speed: 20 Hz on Intel NUC, 30 Hz on PC 
+Running speed: 20 Hz on Intel NUC, 30 Hz on PC
 
 ## 1. Solid-State Lidar Sensor Example
 ###1.1 Scene reconstruction
@@ -25,6 +25,7 @@ Build Office Map
 <a href="https://youtu.be/G5aruo2bSxc">
 <img width="65%" src="/img/3D_SLAM.gif"/>
 </p>
+
 Robot Runtest on Indoor Environment
 
 ## 2. Sensor Setup
@@ -39,13 +40,18 @@ Copy realsense_ros package to your catkin folder
     cd ..
     catkin_make
 ```
+
 ###2.3 Change parameter for L515
-Open ~/catkin_ws/src/realsense-ros/realsense2_camera/launch/rs_camera.launch with text editor
+Change the parameter setting for L515
+```
+ sudo gedit ~/catkin_ws/src/realsense-ros/realsense2_camera/launch/rs_camera.launch 
+```
 search for the below argument and change default setting to below setting
+```
 <arg name="color_width"         default="1280"/>
 <arg name="color_height"        default="720"/>
 <arg name="filters"             default="pointcloud"/>
-
+```
 
 ## 3. Prerequisites
 ### 3.1 **Ubuntu** and **ROS**
@@ -88,5 +94,6 @@ if only localization is required, pls run
 ```
     roslaunch floam_ssl floam_ssl.launch
 ```
+
 
 
