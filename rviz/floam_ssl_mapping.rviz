@@ -4,8 +4,7 @@ Panels:
     Name: Displays
     Property Tree Widget:
       Expanded:
-        - /Global Options1
-        - /raw_data1
+        - /TF1/Frames1
       Splitter Ratio: 0.5
     Tree Height: 530
   - Class: rviz/Selection
@@ -50,11 +49,11 @@ Visualization Manager:
         Z: 0
       Plane: XY
       Plane Cell Count: 15
-      Reference Frame: world
+      Reference Frame: map
       Value: true
     - Class: rviz/Image
       Enabled: true
-      Image Topic: /L515/color/image_raw
+      Image Topic: /camera/color/image_raw
       Max Value: 1
       Median window: 5
       Min Value: 0
@@ -69,45 +68,29 @@ Visualization Manager:
       Frame Timeout: 15
       Frames:
         All Enabled: false
-        L515_accel_frame:
-          Value: false
-        L515_accel_optical_frame:
-          Value: false
-        L515_color_frame:
-          Value: false
-        L515_color_optical_frame:
-          Value: false
-        L515_depth_frame:
-          Value: false
-        L515_depth_optical_frame:
-          Value: false
-        L515_gyro_frame:
-          Value: false
-        L515_imu_optical_frame:
-          Value: false
-        L515_link:
-          Value: false
         base_link:
           Value: true
-        camera_infra_frame:
+        camera_color_frame:
           Value: false
-        camera_infra_optical_frame:
+        camera_color_optical_frame:
+          Value: false
+        camera_depth_frame:
+          Value: false
+        camera_depth_optical_frame:
+          Value: false
+        camera_link:
           Value: false
         map:
           Value: true
-        world:
-          Value: false
       Marker Scale: 3
       Name: TF
       Show Arrows: false
       Show Axes: true
       Show Names: true
       Tree:
-        world:
-          map:
-            base_link:
-              L515_depth_optical_frame:
-                {}
+        map:
+          base_link:
+            {}
       Update Interval: 0
       Value: true
     - Alpha: 1
@@ -120,7 +103,7 @@ Visualization Manager:
       Channel Name: intensity
       Class: rviz/PointCloud2
       Color: 255; 255; 255
-      Color Transformer: Intensity
+      Color Transformer: RGB8
       Decay Time: 0
       Enabled: true
       Invert Rainbow: false
@@ -143,16 +126,16 @@ Visualization Manager:
     - Alpha: 0.699999988079071
       Autocompute Intensity Bounds: true
       Autocompute Value Bounds:
-        Max Value: 10.332175254821777
-        Min Value: 0.21805909276008606
+        Max Value: 1.8543295860290527
+        Min Value: -1.0206714868545532
         Value: true
       Axis: Z
       Channel Name: intensity
       Class: rviz/PointCloud2
       Color: 255; 255; 255
-      Color Transformer: AxisColor
+      Color Transformer: RGB8
       Decay Time: 0
-      Enabled: false
+      Enabled: true
       Invert Rainbow: false
       Max Color: 255; 255; 255
       Max Intensity: 2.9287137904388677e-43
@@ -169,30 +152,7 @@ Visualization Manager:
       Unreliable: false
       Use Fixed Frame: true
       Use rainbow: false
-      Value: false
-    - Alpha: 1
-      Buffer Length: 1
-      Class: rviz/Path
-      Color: 239; 41; 41
-      Enabled: false
-      Head Diameter: 0.30000001192092896
-      Head Length: 0.20000000298023224
-      Length: 0.30000001192092896
-      Line Style: Lines
-      Line Width: 0.029999999329447746
-      Name: ground_truth
-      Offset:
-        X: 0
-        Y: 0
-        Z: 0
-      Pose Color: 255; 85; 255
-      Pose Style: None
-      Radius: 0.029999999329447746
-      Shaft Diameter: 0.10000000149011612
-      Shaft Length: 0.10000000149011612
-      Topic: /gt/trajectory
-      Unreliable: false
-      Value: false
+      Value: true
     - Alpha: 1
       Buffer Length: 1
       Class: rviz/Path
@@ -213,7 +173,7 @@ Visualization Manager:
       Radius: 0.029999999329447746
       Shaft Diameter: 0.10000000149011612
       Shaft Length: 0.10000000149011612
-      Topic: /base_link/trajectory
+      Topic: /floam_ssl/trajectory
       Unreliable: false
       Value: true
   Enabled: true
@@ -243,26 +203,26 @@ Visualization Manager:
   Value: true
   Views:
     Current:
-      Class: rviz/ThirdPersonFollower
-      Distance: 10.028860092163086
+      Class: rviz/XYOrbit
+      Distance: 11.388338088989258
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: -0.5246538519859314
-        Y: 0.23666530847549438
-        Z: 6.388764450093731e-5
+        X: -0.12188959121704102
+        Y: -0.016049295663833618
+        Z: -1.1920928955078125e-6
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: -1.389796495437622
+      Pitch: 1.0197968482971191
       Target Frame: body
-      Value: ThirdPersonFollower (rviz)
-      Yaw: 4.782973766326904
+      Value: XYOrbit (rviz)
+      Yaw: 3.070370674133301
     Saved: ~
 Window Geometry:
   Displays:
@@ -282,5 +242,5 @@ Window Geometry:
   Views:
     collapsed: false
   Width: 1854
-  X: 794
-  Y: 27
+  X: 630
+  Y: 191

@@ -1,4 +1,4 @@
-// Author of FLOAM: Wang Han 
+// Author of FLOAM_SSL: Wang Han 
 // Email wh200720041@gmail.com
 // Homepage https://wanghan.pro
 #ifndef _LIDAR_H_

@@ -1,4 +1,4 @@
-// Author of FLOAM: Wang Han 
+// Author of FLOAM_SSL: Wang Han 
 // Email wh200720041@gmail.com
 // Homepage https://wanghan.pro
 
@@ -47,20 +47,25 @@ void velodyneHandler(const sensor_msgs::PointCloud2ConstPtr &laserCloudMsg)
 
 double total_time =0;
 int total_frame=0;
-
+int frame_count =0;
 void laser_processing(){
     while(1){
         if(!pointCloudBuf.empty()){
             //read data
             mutex_lock.lock();
-            pcl::PointCloud<pcl::PointXYZI>::Ptr pointcloud_in(new pcl::PointCloud<pcl::PointXYZI>());
+            pcl::PointCloud<pcl::PointXYZRGB>::Ptr pointcloud_in(new pcl::PointCloud<pcl::PointXYZRGB>());
             pcl::fromROSMsg(*pointCloudBuf.front(), *pointcloud_in);
             ros::Time pointcloud_time = (pointCloudBuf.front())->header.stamp;
             pointCloudBuf.pop();
             mutex_lock.unlock();
+            frame_count++;
+            if(frame_count%3!=0)
+                continue;
 
-            pcl::PointCloud<pcl::PointXYZI>::Ptr pointcloud_edge(new pcl::PointCloud<pcl::PointXYZI>());          
-            pcl::PointCloud<pcl::PointXYZI>::Ptr pointcloud_surf(new pcl::PointCloud<pcl::PointXYZI>());
+
+
+            pcl::PointCloud<pcl::PointXYZRGB>::Ptr pointcloud_edge(new pcl::PointCloud<pcl::PointXYZRGB>());          
+            pcl::PointCloud<pcl::PointXYZRGB>::Ptr pointcloud_surf(new pcl::PointCloud<pcl::PointXYZRGB>());
 
             std::chrono::time_point<std::chrono::system_clock> start, end;
             start = std::chrono::system_clock::now();
@@ -68,12 +73,14 @@ void laser_processing(){
             end = std::chrono::system_clock::now();
             std::chrono::duration<float> elapsed_seconds = end - start;
             total_frame++;
+
+
             float time_temp = elapsed_seconds.count() * 1000;
             total_time+=time_temp;
-            //ROS_INFO("average laser processing time %f ms \n \n", total_time/total_frame);
+            ROS_INFO("average laser processing time %f ms \n \n", total_time/total_frame);
 
             sensor_msgs::PointCloud2 laserCloudFilteredMsg;
-            pcl::PointCloud<pcl::PointXYZI>::Ptr pointcloud_filtered(new pcl::PointCloud<pcl::PointXYZI>());  
+            pcl::PointCloud<pcl::PointXYZRGB>::Ptr pointcloud_filtered(new pcl::PointCloud<pcl::PointXYZRGB>());  
             *pointcloud_filtered+=*pointcloud_edge;
             *pointcloud_filtered+=*pointcloud_surf;
             pcl::toROSMsg(*pointcloud_in, laserCloudFilteredMsg);
@@ -126,7 +133,7 @@ int main(int argc, char **argv)
 
     laserProcessing.init(lidar_param);
 
-    ros::Subscriber subLaserCloud = nh.subscribe<sensor_msgs::PointCloud2>("/L515/depth/color/points", 100, velodyneHandler);
+    ros::Subscriber subLaserCloud = nh.subscribe<sensor_msgs::PointCloud2>("/camera/depth/color/points", 100, velodyneHandler);
 
     pubLaserCloudFiltered = nh.advertise<sensor_msgs::PointCloud2>("/velodyne_points_filtered", 100);
 

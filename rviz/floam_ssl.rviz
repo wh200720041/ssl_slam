@@ -5,10 +5,7 @@ Panels:
     Property Tree Widget:
       Expanded:
         - /Global Options1
-        - /Status1
-        - /Grid1
         - /TF1/Frames1
-        - /raw_data1
       Splitter Ratio: 0.5
     Tree Height: 530
   - Class: rviz/Selection
@@ -53,11 +50,11 @@ Visualization Manager:
         Z: 0
       Plane: XY
       Plane Cell Count: 15
-      Reference Frame: L515_accel_frame
+      Reference Frame: map
       Value: true
     - Class: rviz/Image
       Enabled: true
-      Image Topic: /L515/color/image_raw
+      Image Topic: /camera/color/image_raw
       Max Value: 1
       Median window: 5
       Min Value: 0
@@ -72,27 +69,19 @@ Visualization Manager:
       Frame Timeout: 15
       Frames:
         All Enabled: false
-        L515_accel_frame:
+        base_link:
+          Value: true
+        camera_color_frame:
           Value: false
-        L515_accel_optical_frame:
+        camera_color_optical_frame:
           Value: false
-        L515_color_frame:
+        camera_depth_frame:
           Value: false
-        L515_color_optical_frame:
+        camera_depth_optical_frame:
           Value: false
-        L515_depth_frame:
+        camera_link:
           Value: false
-        L515_depth_optical_frame:
-          Value: false
-        L515_gyro_frame:
-          Value: false
-        L515_imu_optical_frame:
-          Value: false
-        L515_link:
-          Value: false
-        camera_infra_frame:
-          Value: false
-        camera_infra_optical_frame:
+        map:
           Value: true
       Marker Scale: 5
       Name: TF
@@ -100,22 +89,9 @@ Visualization Manager:
       Show Axes: true
       Show Names: true
       Tree:
-        L515_link:
-          L515_accel_frame:
-            L515_accel_optical_frame:
-              {}
-          L515_color_frame:
-            L515_color_optical_frame:
-              {}
-          L515_depth_frame:
-            L515_depth_optical_frame:
-              {}
-          L515_gyro_frame:
-            L515_imu_optical_frame:
-              {}
-          camera_infra_frame:
-            camera_infra_optical_frame:
-              {}
+        map:
+          base_link:
+            {}
       Update Interval: 0
       Value: true
     - Alpha: 1
@@ -151,31 +127,8 @@ Visualization Manager:
     - Alpha: 1
       Buffer Length: 1
       Class: rviz/Path
-      Color: 239; 41; 41
-      Enabled: false
-      Head Diameter: 0.30000001192092896
-      Head Length: 0.20000000298023224
-      Length: 0.30000001192092896
-      Line Style: Lines
-      Line Width: 0.029999999329447746
-      Name: ground_truth
-      Offset:
-        X: 0
-        Y: 0
-        Z: 0
-      Pose Color: 255; 85; 255
-      Pose Style: None
-      Radius: 0.029999999329447746
-      Shaft Diameter: 0.10000000149011612
-      Shaft Length: 0.10000000149011612
-      Topic: /gt/trajectory
-      Unreliable: false
-      Value: false
-    - Alpha: 1
-      Buffer Length: 1
-      Class: rviz/Path
       Color: 0; 255; 0
-      Enabled: false
+      Enabled: true
       Head Diameter: 0.30000001192092896
       Head Length: 0.20000000298023224
       Length: 0.30000001192092896
@@ -191,14 +144,14 @@ Visualization Manager:
       Radius: 0.029999999329447746
       Shaft Diameter: 0.10000000149011612
       Shaft Length: 0.10000000149011612
-      Topic: /base_link/trajectory
+      Topic: /floam_ssl/trajectory
       Unreliable: false
-      Value: false
+      Value: true
   Enabled: true
   Global Options:
     Background Color: 0; 0; 0
     Default Light: true
-    Fixed Frame: camera_infra_optical_frame
+    Fixed Frame: map
     Frame Rate: 30
   Name: root
   Tools:
@@ -222,25 +175,25 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/XYOrbit
-      Distance: 4.798307418823242
+      Distance: 11.880433082580566
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
         Swap Stereo Eyes: false
         Value: false
       Focal Point:
-        X: 0.35203826427459717
-        Y: -0.22007131576538086
+        X: -0.1594138741493225
+        Y: 0.09641385078430176
         Z: 0
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: -1.4947963953018188
+      Pitch: 1.5247963666915894
       Target Frame: body
       Value: XYOrbit (rviz)
-      Yaw: 4.753592014312744
+      Yaw: 3.1635665893554688
     Saved: ~
 Window Geometry:
   Displays:

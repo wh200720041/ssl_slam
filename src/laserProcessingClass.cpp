@@ -1,4 +1,4 @@
-// Author of FLOAM: Wang Han 
+// Author of FLOAM_SSL: Wang Han 
 // Email wh200720041@gmail.com
 // Homepage https://wanghan.pro
 #include "laserProcessingClass.h"
@@ -9,12 +9,22 @@ void LaserProcessingClass::init(lidar::Lidar lidar_param_in){
 
 }
 
-void LaserProcessingClass::featureExtraction(const pcl::PointCloud<pcl::PointXYZI>::Ptr& pc_in, pcl::PointCloud<pcl::PointXYZI>::Ptr& pc_out_edge, pcl::PointCloud<pcl::PointXYZI>::Ptr& pc_out_surf){
+void LaserProcessingClass::featureExtraction(const pcl::PointCloud<pcl::PointXYZRGB>::Ptr& pc_in, pcl::PointCloud<pcl::PointXYZRGB>::Ptr& pc_out_edge, pcl::PointCloud<pcl::PointXYZRGB>::Ptr& pc_out_surf){
 
     std::vector<int> indices;
-    //pcl::removeNaNFromPointCloud(*pc_in, indices);
+    pcl::removeNaNFromPointCloud(*pc_in, indices);
 
-    std::vector<pcl::PointCloud<pcl::PointXYZI>::Ptr> laserCloudScans;
+    //coordinate transform
+    for (int i = 0; i < (int) pc_in->points.size(); i++){
+        double new_x = pc_in->points[i].z;
+        double new_y = -pc_in->points[i].x;
+        double new_z = -pc_in->points[i].y;
+        pc_in->points[i].x = new_x;
+        pc_in->points[i].y = new_y;
+        pc_in->points[i].z = new_z;
+    }
+
+    std::vector<pcl::PointCloud<pcl::PointXYZRGB>::Ptr> laserCloudScans;
 
     double last_angle = atan2(pc_in->points[0].z,pc_in->points[0].y) * 180 / M_PI;
     int count =0;
@@ -27,21 +37,21 @@ void LaserProcessingClass::featureExtraction(const pcl::PointCloud<pcl::PointXYZ
         double distance = sqrt(pc_in->points[i].x * pc_in->points[i].x + pc_in->points[i].y * pc_in->points[i].y + pc_in->points[i].z * pc_in->points[i].z);
         // if(distance<lidar_param.min_distance || distance>lidar_param.max_distance)
         //     continue;
-        double angle = atan2(pc_in->points[i].z,pc_in->points[i].y) * 180 / M_PI;
+        double angle = atan2(pc_in->points[i].x,pc_in->points[i].z) * 180 / M_PI;
         //here 5 degree is used for noise tolerance, for L515, the noise is 2 degree
         // if(i>5000&&i<5300)
-        //     ROS_INFO("%f,%f,%f,%f,%f",angle,pc_in->points[i].x,pc_in->points[i].y,pc_in->points[i].z,pc_in->points[i].intensity);
-        ROS_INFO_ONCE("%f,%f,%f,%f,%f",angle,pc_in->points[0].x,pc_in->points[0].y,pc_in->points[0].z,pc_in->points[0].intensity);
-        ROS_INFO_ONCE("%f,%f,%f,%f,%f",atan2(pc_in->points[point_size].z,pc_in->points[point_size].x) * 180 / M_PI,pc_in->points[point_size].x,pc_in->points[point_size].y,pc_in->points[point_size].z,pc_in->points[point_size].intensity);
+        //     ROS_INFO("%f,%f,%f,%f",angle,pc_in->points[i].x,pc_in->points[i].y,pc_in->points[i].z);
+        //ROS_INFO_ONCE("%f,%f,%f,%f,%f",angle,pc_in->points[0].x,pc_in->points[0].y,pc_in->points[0].z,pc_in->points[0].intensity);
+        //ROS_INFO_ONCE("%f,%f,%f,%f,%f",atan2(pc_in->points[point_size].z,pc_in->points[point_size].x) * 180 / M_PI,pc_in->points[point_size].x,pc_in->points[point_size].y,pc_in->points[point_size].z,pc_in->points[point_size].intensity);
         count++;
 
         if(fabs(angle - last_angle)>0.05){
             
             if(count>100){
-                pcl::PointCloud<pcl::PointXYZI>::Ptr pc_temp(new pcl::PointCloud<pcl::PointXYZI>());
+                pcl::PointCloud<pcl::PointXYZRGB>::Ptr pc_temp(new pcl::PointCloud<pcl::PointXYZRGB>());
                 for(int k=0;k<count;k++){
                     pc_temp->push_back(pc_in->points[i-count+k+1]);
-                    pc_in->points[i-count+k+1].intensity=1.0;
+                    //pc_in->points[i-count+k+1].intensity=1.0;
                 }
                 laserCloudScans.push_back(pc_temp);
             }
@@ -74,7 +84,7 @@ void LaserProcessingClass::featureExtraction(const pcl::PointCloud<pcl::PointXYZ
 }
 
 
-void LaserProcessingClass::featureExtractionFromSector(const pcl::PointCloud<pcl::PointXYZI>::Ptr& pc_in, std::vector<Double2d>& cloudCurvature, pcl::PointCloud<pcl::PointXYZI>::Ptr& pc_out_edge, pcl::PointCloud<pcl::PointXYZI>::Ptr& pc_out_surf){
+void LaserProcessingClass::featureExtractionFromSector(const pcl::PointCloud<pcl::PointXYZRGB>::Ptr& pc_in, std::vector<Double2d>& cloudCurvature, pcl::PointCloud<pcl::PointXYZRGB>::Ptr& pc_out_edge, pcl::PointCloud<pcl::PointXYZRGB>::Ptr& pc_out_surf){
 
     std::sort(cloudCurvature.begin(), cloudCurvature.end(), [](const Double2d & a, const Double2d & b)
     { 

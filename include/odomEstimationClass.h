@@ -1,4 +1,4 @@
-// Author of FLOAM: Wang Han 
+// Author of FLOAM_SSL: Wang Han 
 // Email wh200720041@gmail.com
 // Homepage https://wanghan.pro
 #ifndef _ODOM_ESTIMATION_CLASS_H_
@@ -40,13 +40,13 @@ class OdomEstimationClass
     	OdomEstimationClass();
     	
 		void init(lidar::Lidar lidar_param, double map_resolution);	
-		void initMapWithPoints(const pcl::PointCloud<pcl::PointXYZI>::Ptr& edge_in, const pcl::PointCloud<pcl::PointXYZI>::Ptr& surf_in);
-		void updatePointsToMap(const pcl::PointCloud<pcl::PointXYZI>::Ptr& edge_in, const pcl::PointCloud<pcl::PointXYZI>::Ptr& surf_in);
-		void getMap(pcl::PointCloud<pcl::PointXYZI>::Ptr& laserCloudMap);
+		void initMapWithPoints(const pcl::PointCloud<pcl::PointXYZRGB>::Ptr& edge_in, const pcl::PointCloud<pcl::PointXYZRGB>::Ptr& surf_in);
+		void updatePointsToMap(const pcl::PointCloud<pcl::PointXYZRGB>::Ptr& edge_in, const pcl::PointCloud<pcl::PointXYZRGB>::Ptr& surf_in);
+		void getMap(pcl::PointCloud<pcl::PointXYZRGB>::Ptr& laserCloudMap);
 
 		Eigen::Isometry3d odom;
-		pcl::PointCloud<pcl::PointXYZI>::Ptr laserCloudCornerMap;
-		pcl::PointCloud<pcl::PointXYZI>::Ptr laserCloudSurfMap;
+		pcl::PointCloud<pcl::PointXYZRGB>::Ptr laserCloudCornerMap;
+		pcl::PointCloud<pcl::PointXYZRGB>::Ptr laserCloudSurfMap;
 	private:
 		//optimization variable
 		double parameters[7] = {0, 0, 0, 1, 0, 0, 0};
@@ -56,25 +56,25 @@ class OdomEstimationClass
 		Eigen::Isometry3d last_odom;
 
 		//kd-tree
-		pcl::KdTreeFLANN<pcl::PointXYZI>::Ptr kdtreeEdgeMap;
-		pcl::KdTreeFLANN<pcl::PointXYZI>::Ptr kdtreeSurfMap;
+		pcl::KdTreeFLANN<pcl::PointXYZRGB>::Ptr kdtreeEdgeMap;
+		pcl::KdTreeFLANN<pcl::PointXYZRGB>::Ptr kdtreeSurfMap;
 
 		//points downsampling before add to map
-		pcl::VoxelGrid<pcl::PointXYZI> downSizeFilterEdge;
-		pcl::VoxelGrid<pcl::PointXYZI> downSizeFilterSurf;
+		pcl::VoxelGrid<pcl::PointXYZRGB> downSizeFilterEdge;
+		pcl::VoxelGrid<pcl::PointXYZRGB> downSizeFilterSurf;
 
 		//local map
-		pcl::CropBox<pcl::PointXYZI> cropBoxFilter;
+		pcl::CropBox<pcl::PointXYZRGB> cropBoxFilter;
 
 		//optimization count 
 		int optimization_count;
 
 		//function
-		void addEdgeCostFactor(const pcl::PointCloud<pcl::PointXYZI>::Ptr& pc_in, const pcl::PointCloud<pcl::PointXYZI>::Ptr& map_in, ceres::Problem& problem, ceres::LossFunction *loss_function);
-		void addSurfCostFactor(const pcl::PointCloud<pcl::PointXYZI>::Ptr& pc_in, const pcl::PointCloud<pcl::PointXYZI>::Ptr& map_in, ceres::Problem& problem, ceres::LossFunction *loss_function);
-		void addPointsToMap(const pcl::PointCloud<pcl::PointXYZI>::Ptr& downsampledEdgeCloud, const pcl::PointCloud<pcl::PointXYZI>::Ptr& downsampledSurfCloud);
-		void pointAssociateToMap(pcl::PointXYZI const *const pi, pcl::PointXYZI *const po);
-		void downSamplingToMap(const pcl::PointCloud<pcl::PointXYZI>::Ptr& edge_pc_in, pcl::PointCloud<pcl::PointXYZI>::Ptr& edge_pc_out, const pcl::PointCloud<pcl::PointXYZI>::Ptr& surf_pc_in, pcl::PointCloud<pcl::PointXYZI>::Ptr& surf_pc_out);
+		void addEdgeCostFactor(const pcl::PointCloud<pcl::PointXYZRGB>::Ptr& pc_in, const pcl::PointCloud<pcl::PointXYZRGB>::Ptr& map_in, ceres::Problem& problem, ceres::LossFunction *loss_function);
+		void addSurfCostFactor(const pcl::PointCloud<pcl::PointXYZRGB>::Ptr& pc_in, const pcl::PointCloud<pcl::PointXYZRGB>::Ptr& map_in, ceres::Problem& problem, ceres::LossFunction *loss_function);
+		void addPointsToMap(const pcl::PointCloud<pcl::PointXYZRGB>::Ptr& downsampledEdgeCloud, const pcl::PointCloud<pcl::PointXYZRGB>::Ptr& downsampledSurfCloud);
+		void pointAssociateToMap(pcl::PointXYZRGB const *const pi, pcl::PointXYZRGB *const po);
+		void downSamplingToMap(const pcl::PointCloud<pcl::PointXYZRGB>::Ptr& edge_pc_in, pcl::PointCloud<pcl::PointXYZRGB>::Ptr& edge_pc_out, const pcl::PointCloud<pcl::PointXYZRGB>::Ptr& surf_pc_in, pcl::PointCloud<pcl::PointXYZRGB>::Ptr& surf_pc_out);
 };
 
 #endif // _ODOM_ESTIMATION_CLASS_H_

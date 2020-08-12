@@ -1,4 +1,4 @@
-// Author of FLOAM: Wang Han 
+// Author of FLOAM_SSL: Wang Han 
 // Email wh200720041@gmail.com
 // Homepage https://wanghan.pro
 
@@ -32,7 +32,7 @@ lidar::Lidar lidar_param;
 std::mutex mutex_lock;
 std::queue<nav_msgs::OdometryConstPtr> odometryBuf;
 std::queue<sensor_msgs::PointCloud2ConstPtr> pointCloudBuf;
-
+Eigen::Isometry3d last_pose = Eigen::Isometry3d::Identity();
 ros::Publisher map_pub;
 void odomCallback(const nav_msgs::Odometry::ConstPtr &msg)
 {
@@ -48,7 +48,7 @@ void velodyneHandler(const sensor_msgs::PointCloud2ConstPtr &laserCloudMsg)
     mutex_lock.unlock();
 }
 
-
+int update_count = 0;
 void laser_mapping(){
     while(1){
         if(!odometryBuf.empty() && !pointCloudBuf.empty()){
@@ -70,7 +70,7 @@ void laser_mapping(){
             }
 
             //if time aligned 
-            pcl::PointCloud<pcl::PointXYZI>::Ptr pointcloud_in(new pcl::PointCloud<pcl::PointXYZI>());
+            pcl::PointCloud<pcl::PointXYZRGB>::Ptr pointcloud_in(new pcl::PointCloud<pcl::PointXYZRGB>());
             pcl::fromROSMsg(*pointCloudBuf.front(), *pointcloud_in);
             ros::Time pointcloud_time = (pointCloudBuf.front())->header.stamp;
 
@@ -81,15 +81,26 @@ void laser_mapping(){
             odometryBuf.pop();
             mutex_lock.unlock();
             
+            
+            update_count++;
+            Eigen::Isometry3d delta_transform = last_pose.inverse() * current_pose;
+            double displacement = delta_transform.translation().squaredNorm();
+            double angular_change = delta_transform.linear().eulerAngles(2,1,0)[0]* 180 / M_PI;
+            //ROS_WARN("yaw %f,%f",displacement,angular_change);
+            if(angular_change>90) angular_change = fabs(180 - angular_change);
+            
+            if(displacement>0.3 || angular_change>20){
+                //ROS_INFO("update map %f,%f",displacement,angular_change);
+                last_pose = current_pose;
+                laserMapping.updateCurrentPointsToMap(pointcloud_in,current_pose);
 
-            laserMapping.updateCurrentPointsToMap(pointcloud_in,current_pose);
-
-            pcl::PointCloud<pcl::PointXYZI>::Ptr pc_map = laserMapping.getMap();
-            sensor_msgs::PointCloud2 PointsMsg;
-            pcl::toROSMsg(*pc_map, PointsMsg);
-            PointsMsg.header.stamp = pointcloud_time;
-            PointsMsg.header.frame_id = "/map";
-            map_pub.publish(PointsMsg); 
+                pcl::PointCloud<pcl::PointXYZRGB>::Ptr pc_map = laserMapping.getMap();
+                sensor_msgs::PointCloud2 PointsMsg;
+                pcl::toROSMsg(*pc_map, PointsMsg);
+                PointsMsg.header.stamp = pointcloud_time;
+                PointsMsg.header.frame_id = "/map";
+                map_pub.publish(PointsMsg); 
+            }
             
 
 
@@ -123,8 +134,9 @@ int main(int argc, char **argv)
     lidar_param.setLines(scan_line);
     lidar_param.setMaxDistance(max_dis);
     lidar_param.setMinDistance(min_dis);
-
+    
     laserMapping.init(map_resolution);
+    last_pose.translation().x() = 10;
     ros::Subscriber subLaserCloud = nh.subscribe<sensor_msgs::PointCloud2>("/velodyne_points_filtered", 100, velodyneHandler);
     ros::Subscriber subOdometry = nh.subscribe<nav_msgs::Odometry>("/odom", 100, odomCallback);
 
