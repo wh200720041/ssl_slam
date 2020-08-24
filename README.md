@@ -10,7 +10,9 @@ Running speed: 20 Hz on Intel NUC, 30 Hz on PC
 ## 1. Solid-State Lidar Sensor Example
 ### 1.1 Scene reconstruction
 <p align='center'>
+<a href="https://youtu.be/Ox7yDx6JslQ">
 <img width="65%" src="/img/3D_reconstruction.gif"/>
+</a>
 </p>
 
 ### 1.2 SFM building example
