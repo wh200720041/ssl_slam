@@ -71,11 +71,11 @@ You may download our [recorded data](https://drive.google.com/file/d/1ZY6Kp5MEGB
 ### 3.3 Launch ROS
 if you would like to create the map at the same time, you can run 
 ```
-    roslaunch floam floam_ssl_mapping.launch
+    roslaunch floam_ssl floam_ssl_mapping.launch
 ```
 or create probability map 
 ```
-    roslaunch floam floam_ssl_octo_mapping.launch
+    roslaunch floam_ssl floam_ssl_octo_mapping.launch
 ```
 
 if only localization is required, you may refer to run
@@ -118,5 +118,5 @@ search for the below argument and change default setting to below setting
 
 ### 4.5 Launch ROS
 ```
-    roslaunch floam floam_ssl_L515.launch
+    roslaunch floam_ssl floam_ssl_L515.launch
 ```
