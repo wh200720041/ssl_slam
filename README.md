@@ -39,7 +39,10 @@ Follow [Ceres Installation](http://ceres-solver.org/installation.html).
 ### 2.3. **PCL**
 Follow [PCL Installation](http://www.pointclouds.org/downloads/linux.html).
 
-### 2.4. **Trajectory visualization**
+### 2.4 **OctoMap**
+Follow [OctoMap Installation](http://wiki.ros.org/octomap).
+
+### 2.5. **Trajectory visualization**
 For visualization purpose, this package uses hector trajectory sever, you may install the package by 
 ```
 sudo apt-get install ros-melodic-hector-trajectory-server
@@ -63,6 +66,10 @@ You may download our [recorded data](https://drive.google.com/file/d/1ZY6Kp5MEGB
 if you would like to create the map at the same time, you can run 
 ```
     roslaunch floam floam_ssl_mapping.launch
+```
+or create probability map 
+```
+    roslaunch floam floam_ssl_octo_mapping.launch
 ```
 
 if only localization is required, you may refer to run

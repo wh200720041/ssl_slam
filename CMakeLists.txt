@@ -30,6 +30,7 @@ else()
 endif()
 find_package(PCL REQUIRED)
 find_package(Ceres REQUIRED)
+find_package(octomap REQUIRED)
 
 include_directories(
   include
@@ -37,6 +38,7 @@ include_directories(
   ${PCL_INCLUDE_DIRS}
   ${CERES_INCLUDE_DIRS}
   ${EIGEN3_INCLUDE_DIRS}
+  ${OCTOMAP_INCLUDE_DIRS}
 )
 
 link_directories(
@@ -62,3 +64,6 @@ target_link_libraries(floam_ssl_odom_estimation_node ${EIGEN3_LIBRARIES} ${catki
 
 add_executable(floam_ssl_laser_mapping_node src/laserMappingNode.cpp src/laserMappingClass.cpp src/lidar.cpp)
 target_link_libraries(floam_ssl_laser_mapping_node ${EIGEN3_LIBRARIES} ${catkin_LIBRARIES} ${PCL_LIBRARIES} ${CERES_LIBRARIES})
+
+add_executable(floam_ssl_octo_mapping_node src/octoMappingNode.cpp src/octoMappingClass.cpp src/lidar.cpp)
+target_link_libraries(floam_ssl_octo_mapping_node ${EIGEN3_LIBRARIES} ${catkin_LIBRARIES} ${PCL_LIBRARIES} ${CERES_LIBRARIES} ${OCTOMAP_LIBRARIES})
