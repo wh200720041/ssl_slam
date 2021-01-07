@@ -1,7 +1,11 @@
 <?xml version="1.0"?>
 <launch>
 
-    <include file="$(find realsense2_camera)/launch/rs_camera.launch"/>
+    <include file="$(find realsense2_camera)/launch/rs_camera.launch">
+        <arg name="color_width" value="1280" />
+        <arg name="color_height" value="720" />
+        <arg name="filters" value="pointcloud" />
+    </include>
 
     <param name="scan_period" value="0.1" />
 

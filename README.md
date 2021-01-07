@@ -90,7 +90,7 @@ If you have new Realsense L515 sensor, you may follow the below setup instructio
 Follow [Librealsense Installation](https://github.com/IntelRealSense/librealsense/blob/master/doc/installation.md)
 
 ### 4.3 Realsense_ros
-Copy realsense_ros package to your catkin folder
+Copy [realsense_ros](https://github.com/IntelRealSense/realsense-ros) package to your catkin folder
 ```
     cd ~/catkin_ws/src
     git clone https://github.com/IntelRealSense/realsense-ros.git
@@ -98,19 +98,9 @@ Copy realsense_ros package to your catkin folder
     catkin_make
 ```
 
-### 4.4 Change parameter for L515
-Change the parameter setting for L515
-```
- sudo gedit ~/catkin_ws/src/realsense-ros/realsense2_camera/launch/rs_camera.launch 
-```
-search for the below argument and change default setting to below setting
-```
-<arg name="color_width"         default="1280"/>
-<arg name="color_height"        default="720"/>
-<arg name="filters"             default="pointcloud"/>
-```
-
-### 4.5 Launch ROS
+### 4.4 Launch ROS
 ```
     roslaunch floam floam_ssl_L515.launch
 ```
+
+This runs `floam_ssl_mapping.launch` with live L515 data.
