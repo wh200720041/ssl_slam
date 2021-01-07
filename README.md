@@ -39,8 +39,14 @@ Follow [Ceres Installation](http://ceres-solver.org/installation.html).
 ### 2.3. **PCL**
 Follow [PCL Installation](http://www.pointclouds.org/downloads/linux.html).
 
+Tested with 1.8.1
+
 ### 2.4 **OctoMap**
 Follow [OctoMap Installation](http://wiki.ros.org/octomap).
+
+```bash
+$ sudo apt install ros-melodic-octomap*
+```
 
 ### 2.5. **Trajectory visualization**
 For visualization purpose, this package uses hector trajectory sever, you may install the package by 
