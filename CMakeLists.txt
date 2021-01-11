@@ -2,13 +2,15 @@ cmake_minimum_required(VERSION 2.8.3)
 project(floam_ssl)
 
 set(CMAKE_BUILD_TYPE "Release")
-set(CMAKE_CXX_FLAGS "-std=c++11")
+set(CMAKE_CXX_FLAGS "-std=c++14")
 set(CMAKE_CXX_FLAGS_RELEASE "-O3 -Wall -g")
 
 find_package(catkin REQUIRED COMPONENTS
   geometry_msgs
   nav_msgs
   sensor_msgs
+  octomap_msgs
+  octomap_ros
   roscpp
   rospy
   rosbag
