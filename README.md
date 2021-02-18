@@ -65,7 +65,7 @@ Alternatively, you may remove the hector trajectory server node if trajectory vi
 ### 3.1 Clone repository:
 ```
     cd ~/catkin_ws/src
-    git clone https://github.com/wh200720041/floam_ssl.git
+    git clone https://github.com/wh200720041/SSL_SLAM.git
     cd ..
     catkin_make
     source ~/catkin_ws/devel/setup.bash
