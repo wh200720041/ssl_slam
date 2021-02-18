@@ -1,4 +1,4 @@
-// Author of FLOAM_SSL: Wang Han 
+// Author of SSL_SLAM: Wang Han 
 // Email wh200720041@gmail.com
 // Homepage https://wanghan.pro
 
@@ -109,10 +109,9 @@ void odom_estimation(){
                 total_frame++;
                 float time_temp = elapsed_seconds.count() * 1000;
                 total_time+=time_temp;
-                ROS_INFO("average odom estimation time %f ms \n \n", total_time/total_frame);
+                if(total_frame%100==0)
+                    ROS_INFO("average odom estimation time %f ms \n \n", total_time/total_frame);
             }
-
-
 
             Eigen::Quaterniond q_current(odomEstimation.odom.rotation());
             //q_current.normalize();

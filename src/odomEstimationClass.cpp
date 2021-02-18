@@ -1,4 +1,4 @@
-// Author of FLOAM_SSL: Wang Han 
+// Author of SSL_SLAM: Wang Han 
 // Email wh200720041@gmail.com
 // Homepage https://wanghan.pro
 
@@ -27,7 +27,6 @@ void OdomEstimationClass::initMapWithPoints(const pcl::PointCloud<pcl::PointXYZR
     *laserCloudSurfMap += *surf_in;
     optimization_count=12;
 }
-
 
 void OdomEstimationClass::updatePointsToMap(const pcl::PointCloud<pcl::PointXYZRGB>::Ptr& edge_in, const pcl::PointCloud<pcl::PointXYZRGB>::Ptr& surf_in){
 
@@ -73,9 +72,11 @@ void OdomEstimationClass::updatePointsToMap(const pcl::PointCloud<pcl::PointXYZR
     }else{
         printf("not enough points in map to associate, map error");
     }
+
     odom = Eigen::Isometry3d::Identity();
     odom.linear() = q_w_curr.toRotationMatrix();
     odom.translation() = t_w_curr;
+
     addPointsToMap(downsampledEdgeCloud,downsampledSurfCloud);
 
 }

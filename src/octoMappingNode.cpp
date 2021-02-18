@@ -1,4 +1,4 @@
-// Author of FLOAM_SSL: Wang Han 
+// Author of SSL_SLAM: Wang Han 
 // Email wh200720041@gmail.com
 // Homepage https://wanghan.pro
 
@@ -96,7 +96,7 @@ void octo_mapping(){
 
             end = std::chrono::system_clock::now();
             std::chrono::duration<float> elapsed_seconds = end - start;
-            ROS_INFO("tims cost %f", elapsed_seconds.count() * 1000);
+            total_frame++;
             octomap::ColorOcTree* octo_map = octoMapping.getMap();
 
             // publish octomap

@@ -1,10 +1,10 @@
 <?xml version="1.0"?>
 <package>
-  <name>floam_ssl</name>
+  <name>ssl_slam</name>
   <version>0.0.0</version>
 
   <description>
-    This work is created based on some optimization on ALOAM by HKUST and LOAM by CMU
+    This work is created based on some optimization on FLOAM
   </description>
 
   <maintainer email="wh200720041@gmail.com">Han Wang</maintainer>

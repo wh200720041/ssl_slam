@@ -1,4 +1,4 @@
-// Author of FLOAM_SSL: Wang Han 
+// Author of SSL_SLAM: Wang Han 
 // Email wh200720041@gmail.com
 // Homepage https://wanghan.pro
 #include "laserProcessingClass.h"
@@ -31,18 +31,12 @@ void LaserProcessingClass::featureExtraction(const pcl::PointCloud<pcl::PointXYZ
     int point_size = pc_in->points.size()-1;
     for (int i = 0; i < (int) pc_in->points.size(); i++)
     {
-     
-        //pc_in->points[i].intensity = (double)i / pc_in->points.size();
+        if(pc_in->points[i].z<-1.0||pc_in->points[i].z>1.0||pc_in->points[i].x<0.5 )
+            continue;
+
         int scanID=0;
         double distance = sqrt(pc_in->points[i].x * pc_in->points[i].x + pc_in->points[i].y * pc_in->points[i].y + pc_in->points[i].z * pc_in->points[i].z);
-        // if(distance<lidar_param.min_distance || distance>lidar_param.max_distance)
-        //     continue;
         double angle = atan2(pc_in->points[i].x,pc_in->points[i].z) * 180 / M_PI;
-        //here 5 degree is used for noise tolerance, for L515, the noise is 2 degree
-        // if(i>5000&&i<5300)
-        //     ROS_INFO("%f,%f,%f,%f",angle,pc_in->points[i].x,pc_in->points[i].y,pc_in->points[i].z);
-        //ROS_INFO_ONCE("%f,%f,%f,%f,%f",angle,pc_in->points[0].x,pc_in->points[0].y,pc_in->points[0].z,pc_in->points[0].intensity);
-        //ROS_INFO_ONCE("%f,%f,%f,%f,%f",atan2(pc_in->points[point_size].z,pc_in->points[point_size].x) * 180 / M_PI,pc_in->points[point_size].x,pc_in->points[point_size].y,pc_in->points[point_size].z,pc_in->points[point_size].intensity);
         count++;
 
         if(fabs(angle - last_angle)>0.05){
@@ -134,54 +128,6 @@ void LaserProcessingClass::featureExtractionFromSector(const pcl::PointCloud<pcl
 
         }
     }
-
-    //find flat points
-    // point_info_count =0;
-    // int smallestPickedNum = 0;
-    
-    // for (int i = 0; i <= (int)cloudCurvature.size()-1; i++)
-    // {
-    //     int ind = cloudCurvature[i].id; 
-
-    //     if( std::find(picked_points.begin(), picked_points.end(), ind)==picked_points.end()){
-    //         if(cloudCurvature[i].value > 0.1){
-    //             //ROS_WARN("extracted feature not qualified, please check lidar");
-    //             break;
-    //         }
-    //         smallestPickedNum++;
-    //         picked_points.push_back(ind);
-            
-    //         if(smallestPickedNum <= 4){
-    //             //find all points
-    //             pc_surf_flat->push_back(pc_in->points[ind]);
-    //             pc_surf_lessFlat->push_back(pc_in->points[ind]);
-    //             point_info_count++;
-    //         }
-    //         else{
-    //             break;
-    //         }
-
-    //         for(int k=1;k<=5;k++){
-    //             double diffX = pc_in->points[ind + k].x - pc_in->points[ind + k - 1].x;
-    //             double diffY = pc_in->points[ind + k].y - pc_in->points[ind + k - 1].y;
-    //             double diffZ = pc_in->points[ind + k].z - pc_in->points[ind + k - 1].z;
-    //             if (diffX * diffX + diffY * diffY + diffZ * diffZ > 0.05){
-    //                 break;
-    //             }
-    //             picked_points.push_back(ind+k);
-    //         }
-    //         for(int k=-1;k>=-5;k--){
-    //             double diffX = pc_in->points[ind + k].x - pc_in->points[ind + k + 1].x;
-    //             double diffY = pc_in->points[ind + k].y - pc_in->points[ind + k + 1].y;
-    //             double diffZ = pc_in->points[ind + k].z - pc_in->points[ind + k + 1].z;
-    //             if (diffX * diffX + diffY * diffY + diffZ * diffZ > 0.05){
-    //                 break;
-    //             }
-    //             picked_points.push_back(ind+k);
-    //         }
-
-    //     }
-    // }
     
     for (int i = 0; i <= (int)cloudCurvature.size()-1; i++)
     {

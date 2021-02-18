@@ -1,7 +1,11 @@
-# FLOAM - SSL
-## Fast LOAM (Lidar Odometry And Mapping) for solid state lidar (Intel Realsense L515 as an example)
+# SSL_SLAM
+## Lightweight 3-D Localization and Mapping for Solid-State LiDAR (Intel Realsense L515 as an example)
 
 This code is modified from [FLOAM](https://github.com/wh200720041/floam) 
+
+If you would like to separate mapping and localization, you can check this repo: 
+
+
 
 **Modifier:** [Wang Han](http://wanghan.pro), Nanyang Technological University, Singapore
 
@@ -71,16 +75,16 @@ You may download our [recorded data](https://drive.google.com/file/d/1ZY6Kp5MEGB
 ### 3.3 Launch ROS
 if you would like to create the map at the same time, you can run 
 ```
-    roslaunch floam_ssl floam_ssl_mapping.launch
+    roslaunch ssl_slam ssl_slam_mapping.launch
 ```
 or create probability map 
 ```
-    roslaunch floam_ssl floam_ssl_octo_mapping.launch
+    roslaunch ssl_slam ssl_slam_octo_mapping.launch
 ```
 
 if only localization is required, you may refer to run
 ```
-    roslaunch floam_ssl floam_ssl.launch
+    roslaunch ssl_slam ssl_slam.launch
 ```
 
 ## 4. Sensor Setup
@@ -106,7 +110,7 @@ Copy [realsense_ros](https://github.com/IntelRealSense/realsense-ros) package to
 
 ### 4.4 Launch ROS
 ```
-    roslaunch floam_ssl floam_ssl_L515.launch
+    roslaunch ssl_slam ssl_slam_L515.launch
 ```
 
-This runs `floam_ssl_mapping.launch` with live L515 data.
+This runs `ssl_slam_mapping.launch` with live L515 data.

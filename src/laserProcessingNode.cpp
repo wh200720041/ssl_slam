@@ -1,4 +1,4 @@
-// Author of FLOAM_SSL: Wang Han 
+// Author of SSL_SLAM: Wang Han 
 // Email wh200720041@gmail.com
 // Homepage https://wanghan.pro
 
@@ -77,7 +77,8 @@ void laser_processing(){
 
             float time_temp = elapsed_seconds.count() * 1000;
             total_time+=time_temp;
-            ROS_INFO("average laser processing time %f ms \n \n", total_time/total_frame);
+            if(total_frame%100==0)
+                ROS_INFO("average laser processing time %f ms \n \n", total_time/total_frame);
 
             sensor_msgs::PointCloud2 laserCloudFilteredMsg;
             pcl::PointCloud<pcl::PointXYZRGB>::Ptr pointcloud_filtered(new pcl::PointCloud<pcl::PointXYZRGB>());  

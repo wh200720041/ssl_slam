@@ -1,4 +1,4 @@
-// Author of FLOAM_SSL: Wang Han 
+// Author of SSL_SLAM: Wang Han 
 // Email wh200720041@gmail.com
 // Homepage https://wanghan.pro
 
@@ -49,6 +49,7 @@ void velodyneHandler(const sensor_msgs::PointCloud2ConstPtr &laserCloudMsg)
 }
 
 int update_count = 0;
+int frame_id=0;
 void laser_mapping(){
     while(1){
         if(!odometryBuf.empty() && !pointCloudBuf.empty()){
@@ -86,7 +87,7 @@ void laser_mapping(){
             Eigen::Isometry3d delta_transform = last_pose.inverse() * current_pose;
             double displacement = delta_transform.translation().squaredNorm();
             double angular_change = delta_transform.linear().eulerAngles(2,1,0)[0]* 180 / M_PI;
-            //ROS_WARN("yaw %f,%f",displacement,angular_change);
+
             if(angular_change>90) angular_change = fabs(180 - angular_change);
             
             if(displacement>0.3 || angular_change>20){
