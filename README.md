@@ -1,11 +1,11 @@
 # SSL_SLAM
 ## Lightweight 3-D Localization and Mapping for Solid-State LiDAR (Intel Realsense L515 as an example)
 
-This code is modified from [FLOAM](https://github.com/wh200720041/floam) 
+This code is an implementation of paper "Lightweight 3-D Localization and Mapping for Solid-State LiDAR", accepted in IEEE Robotics and Automation Letters, 2021
 
-If you would like to separate mapping and localization, you can check this repo: 
+A summary video demo can be found at [Video](https://youtu.be/Uy_2MKwUDN8) 
 
-
+If you would like to separate mapping and localization, you can check this repo: [SSL_SLAM2](https://github.com/wh200720041/ssl_slam2)
 
 **Modifier:** [Wang Han](http://wanghan.pro), Nanyang Technological University, Singapore
 
@@ -21,7 +21,9 @@ Running speed: 20 Hz on Intel NUC, 30 Hz on PC
 
 ### 1.2 SFM building example
 <p align='center'>
-<img width="65%" src="/img/3D_reconstruction.png"/>
+<a href="https://youtu.be/D2xt_5xm_Ew">
+<img width="65%" src="/img/3DMapping.gif"/>
+</a>
 </p>
 
 ### 1.3 Localization and Mapping with L515
@@ -114,3 +116,14 @@ Copy [realsense_ros](https://github.com/IntelRealSense/realsense-ros) package to
 ```
 
 This runs `ssl_slam_mapping.launch` with live L515 data.
+
+## 5. Citation
+If you use this work for your research, you may want to cite
+```
+@article{wang2021lightweight,
+  title={Lightweight 3-D Localization and Mapping for Solid-State LiDAR},
+  author={Wang, Han and Wang, Chen and Xie, Lihua},
+  journal={arXiv preprint arXiv:2102.03800},
+  year={2021}
+}
+```
