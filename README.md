@@ -5,11 +5,10 @@ This code is an implementation of paper "Lightweight 3-D Localization and Mappin
 
 A summary video demo can be found at [Video](https://youtu.be/Uy_2MKwUDN8) 
 
-If you would like to separate mapping and localization, you can check this repo: [SSL_SLAM2](https://github.com/wh200720041/ssl_slam2)
-
 **Modifier:** [Wang Han](http://wanghan.pro), Nanyang Technological University, Singapore
 
-Running speed: 20 Hz on Intel NUC, 30 Hz on PC
+###If you would like to separate mapping and localization, you can check this repo: [SSL_SLAM2](https://github.com/wh200720041/ssl_slam2)
+
 
 ## 1. Solid-State Lidar Sensor Example
 ### 1.1 Scene reconstruction
@@ -65,14 +64,14 @@ Alternatively, you may remove the hector trajectory server node if trajectory vi
 ### 3.1 Clone repository:
 ```
     cd ~/catkin_ws/src
-    git clone https://github.com/wh200720041/SSL_SLAM.git
+    git clone https://github.com/wh200720041/floam_ssl.git
     cd ..
     catkin_make
     source ~/catkin_ws/devel/setup.bash
 ```
 
 ### 3.2 Download test rosbag
-You may download our [recorded data](https://drive.google.com/file/d/1ZY6Kp5MEGBRoSP6cU2YjNTg5qsy8wNIe/view?usp=sharing) if you dont have realsense L515, and by defult the file should be under home/user/Downloads
+You may download our [recorded data](https://drive.google.com/file/d/1ZY6Kp5MEGBRoSP6cU2YjNTg5qsy8wNIe/view?usp=sharing) (7.5G) if you dont have realsense L515, and by defult the file should be under home/user/Downloads
 
 ### 3.3 Launch ROS
 if you would like to create the map at the same time, you can run 
@@ -118,12 +117,15 @@ Copy [realsense_ros](https://github.com/IntelRealSense/realsense-ros) package to
 This runs `ssl_slam_mapping.launch` with live L515 data.
 
 ## 5. Citation
-If you use this work for your research, you may want to cite
+If you use this work for your research, you may want to cite the paper below, your citation will be appreciated 
 ```
 @article{wang2021lightweight,
-  title={Lightweight 3-D Localization and Mapping for Solid-State LiDAR},
-  author={Wang, Han and Wang, Chen and Xie, Lihua},
-  journal={arXiv preprint arXiv:2102.03800},
-  year={2021}
-}
+  author={H. {Wang} and C. {Wang} and L. {Xie}},
+  journal={IEEE Robotics and Automation Letters}, 
+  title={Lightweight 3-D Localization and Mapping for Solid-State LiDAR}, 
+  year={2021},
+  volume={6},
+  number={2},
+  pages={1801-1807},
+  doi={10.1109/LRA.2021.3060392}}
 ```
