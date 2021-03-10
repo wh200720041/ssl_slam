@@ -47,9 +47,8 @@ Tested with 1.8.1
 
 ### 2.4 **OctoMap**
 Follow [OctoMap Installation](http://wiki.ros.org/octomap).
-
-```bash
-sudo apt install ros-melodic-octomap*
+```
+sudo apt-get install ros-melodic-octomap*
 ```
 
 ### 2.5. **Trajectory visualization**
