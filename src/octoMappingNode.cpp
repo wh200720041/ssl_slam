@@ -102,7 +102,7 @@ void octo_mapping(){
             // publish octomap
             octomap_msgs::Octomap octomapMsg;
             octomapMsg.header.stamp = pointcloud_time;
-            octomapMsg.header.frame_id = "/map";
+            octomapMsg.header.frame_id = "map";
             octomapMsg.id = 1 ;
             octomapMsg.resolution = map_resolution;
             bool res = octomap_msgs::fullMapToMsg(*octo_map, octomapMsg);
