@@ -223,12 +223,12 @@ void OdomEstimationClass::addPointsToMap(const pcl::PointCloud<pcl::PointXYZRGB>
         laserCloudSurfMap->push_back(point_temp);
     }
     
-    double x_min = +odom.translation().x()-100;
-    double y_min = +odom.translation().y()-100;
-    double z_min = +odom.translation().z()-100;
-    double x_max = +odom.translation().x()+100;
-    double y_max = +odom.translation().y()+100;
-    double z_max = +odom.translation().z()+100;
+    double x_min = +odom.translation().x()-10;
+    double y_min = +odom.translation().y()-10;
+    double z_min = +odom.translation().z()-10;
+    double x_max = +odom.translation().x()+10;
+    double y_max = +odom.translation().y()+10;
+    double z_max = +odom.translation().z()+10;
     
     //ROS_INFO("size : %f,%f,%f,%f,%f,%f", x_min, y_min, z_min,x_max, y_max, z_max);
     cropBoxFilter.setMin(Eigen::Vector4f(x_min, y_min, z_min, 1.0));
