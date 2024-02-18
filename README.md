@@ -33,9 +33,9 @@ A summary video demo can be found at [Video](https://youtu.be/Uy_2MKwUDN8)
 
 ## 2. Prerequisites
 ### 2.1 **Ubuntu** and **ROS**
-Ubuntu 64-bit 18.04.
+Ubuntu 64-bit 20.04.
 
-ROS Melodic. [ROS Installation](http://wiki.ros.org/ROS/Installation)
+ROS Noetic. [ROS Installation](http://wiki.ros.org/ROS/Installation)
 
 ### 2.2. **Ceres Solver**
 Follow [Ceres Installation](http://ceres-solver.org/installation.html).
@@ -48,13 +48,13 @@ Tested with 1.8.1
 ### 2.4 **OctoMap**
 Follow [OctoMap Installation](http://wiki.ros.org/octomap).
 ```
-sudo apt-get install ros-melodic-octomap*
+sudo apt-get install ros-noetic-octomap*
 ```
 
 ### 2.5. **Trajectory visualization**
 For visualization purpose, this package uses hector trajectory sever, you may install the package by 
 ```
-sudo apt-get install ros-melodic-hector-trajectory-server
+sudo apt-get install ros-noetic-hector-trajectory-server
 ```
 Alternatively, you may remove the hector trajectory server node if trajectory visualization is not needed
 
