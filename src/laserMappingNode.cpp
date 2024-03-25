@@ -9,6 +9,8 @@
 #include <queue>
 #include <thread>
 #include <chrono>
+#include <sstream>
+#include <string>
 
 //ros lib
 #include <ros/ros.h>
@@ -16,11 +18,13 @@
 #include <nav_msgs/Odometry.h>
 #include <tf/transform_datatypes.h>
 #include <tf/transform_broadcaster.h>
+#include <std_srvs/Trigger.h>
 
 //pcl lib
 #include <pcl_conversions/pcl_conversions.h>
 #include <pcl/point_cloud.h>
 #include <pcl/point_types.h>
+#include <pcl/io/pcd_io.h>
 
 //local lib
 #include "laserMappingClass.h"
@@ -112,6 +116,21 @@ void laser_mapping(){
     }
 }
 
+bool saveMapCallback(std_srvs::Trigger::Request& req, std_srvs::Trigger::Response& res)
+{
+    pcl::PointCloud<pcl::PointXYZRGB>::Ptr pc_map = laserMapping.getMap();
+
+    std::stringstream ss;
+    ss << "cloud_" << ros::Time::now() << ".pcd";
+
+    pcl::PCDWriter writer;
+    writer.writeBinary(ss.str(), *pc_map);
+
+    res.success = true;
+    res.message = "Saved to " + ss.str();
+    return true;
+}
+
 int main(int argc, char **argv)
 {
     ros::init(argc, argv, "main");
@@ -140,6 +159,8 @@ int main(int argc, char **argv)
     last_pose.translation().x() = 10;
     ros::Subscriber subLaserCloud = nh.subscribe<sensor_msgs::PointCloud2>("/velodyne_points_filtered", 100, velodyneHandler);
     ros::Subscriber subOdometry = nh.subscribe<nav_msgs::Odometry>("/odom", 100, odomCallback);
+
+    ros::ServiceServer srv_save = nh.advertiseService("save_map", saveMapCallback);
 
     map_pub = nh.advertise<sensor_msgs::PointCloud2>("/map", 100);
     std::thread laser_mapping_process{laser_mapping};
